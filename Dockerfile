@@ -1,3 +1,7 @@
+## Dockerfile to make "docker-fix"
+## This file makes a container image of FSL-FIX
+## K. Nemoto 25 Mar 2021
+
 FROM ubuntu:18.04
 
 ENV DEBIAN_FRONTEND=noninteractive
