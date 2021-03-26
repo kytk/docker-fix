@@ -36,7 +36,7 @@ fi
 #   1 - Use the MATLAB script version
 #   2 - Use Octave script version
 if [ -z "${FSL_FIX_MATLAB_MODE}" ]; then
-	FSL_FIX_MATLAB_MODE=0
+	FSL_FIX_MATLAB_MODE=2
 fi
 
 # Part IIa MATLAB compiled version
