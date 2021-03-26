@@ -37,15 +37,13 @@ ENV PATH=$PATH:/usr/local/fix
 # Copy customized settings.sh
 COPY settings.sh /usr/local/fix
 
-# MATLAB MCR
-RUN cd /tmp && wget https://ssd.mathworks.com/supportfiles/downloads/R2017b/deployment_files/R2017b/installers/glnxa64/MCR_R2017b_glnxa64_installer.zip && \
- mkdir mcr && mv MCR_R2017b_glnxa64_installer.zip mcr && cd mcr && \
- unzip MCR_R2017b_glnxa64_installer.zip && \
- ./install -mode silent -agreeToLicense yes \
-   -destinationFolder /usr/local/MATLAB/MCR/v93 && \
- cd /tmp && rm -rf mcr matlab*
-# workaround for segmentation violation error
-RUN cd /usr/local/MATLAB/MCR/v93/sys/os/glnxa64 && mv libstdc++.so.6 libstdc++.so.6.old && mv libstdc++.so.6.0.20 libstdc++.so.6.0.20.old
+## MATLAB MCR
+#RUN cd /tmp && wget https://ssd.mathworks.com/supportfiles/downloads/R2017b/deployment_files/R2017b/installers/glnxa64/MCR_R2017b_glnxa64_installer.zip && \
+# mkdir mcr && mv MCR_R2017b_glnxa64_installer.zip mcr && cd mcr && \
+# unzip MCR_R2017b_glnxa64_installer.zip && \
+# ./install -mode silent -agreeToLicense yes \
+#   -destinationFolder /usr/local/MATLAB/MCR/v93 && \
+# cd /tmp && rm -rf mcr matlab*
 
 # Install ROBEX
 RUN cd /tmp && wget http://www.lin4neuro.net/lin4neuro/neuroimaging_software_packages/ROBEXv12.linux64.tar.gz && \
@@ -55,7 +53,10 @@ RUN cd /tmp && wget http://www.lin4neuro.net/lin4neuro/neuroimaging_software_pac
 ENV PATH=$PATH:/usr/local/ROBEX
 
 # Install bc
-RUN apt install bc
+RUN apt install -y bc
+
+# Install Octave
+RUN apt install -y octave
 
 # Install scripts
 COPY individual-fix.sh /usr/local/bin
