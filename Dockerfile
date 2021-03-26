@@ -23,8 +23,10 @@ RUN cd /tmp && wget https://fsl.fmrib.ox.ac.uk/fsldownloads/fslinstaller.py && \
 
 ENV FSLDIR=/usr/local/fsl
 ENV PATH=$PATH:$FSLDIR/bin
-ENV LD_LIBRARY_PATH=$FSLDIR/lib
 ENV FSLOUTPUTTYPE=NIFTI_GZ
+ENV FSLTCLSH=$FSLDIR/bin/fsltclsh
+ENV FSLWISH=$FSLDIR/bin/fslwish
+
 
 # Install FIX
 RUN cd /tmp && wget http://www.fmrib.ox.ac.uk/~steve/ftp/fix.tar.gz && \
@@ -50,4 +52,9 @@ RUN cd /tmp && wget http://www.lin4neuro.net/lin4neuro/neuroimaging_software_pac
 
 ENV PATH=$PATH:/usr/local/ROBEX
 
+# Install bc
+RUN apt install bc
+
+# Install scripts
+COPY individual-melodic.sh /usr/local/bin
 
