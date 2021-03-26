@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# A script to run Melodic and FIX
+
 ###Configuration#######################################
 
 #Set FWHM
@@ -165,7 +167,11 @@ set fmri(init_standard) ""
 set fmri(overwrite_yn) 0
 EOS
 
+  # Melodic preprocessing
   feat design_${func_orig}.fsf
+
+  # FIX
+  fix ${func_orig}.ica /usr/local/fix/Standard.RData 20 -m
 
 done
 

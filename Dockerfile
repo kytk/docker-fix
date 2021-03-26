@@ -44,6 +44,8 @@ RUN cd /tmp && wget https://ssd.mathworks.com/supportfiles/downloads/R2017b/depl
  ./install -mode silent -agreeToLicense yes \
    -destinationFolder /usr/local/MATLAB/MCR/v93 && \
  cd /tmp && rm -rf mcr matlab*
+# workaround for segmentation violation error
+RUN cd /usr/local/MATLAB/MCR/v93/sys/os/glnxa64 && mv libstdc++.so.6 libstdc++.so.6.old && mv libstdc++.so.6.0.20 libstdc++.so.6.0.20.old
 
 # Install ROBEX
 RUN cd /tmp && wget http://www.lin4neuro.net/lin4neuro/neuroimaging_software_packages/ROBEXv12.linux64.tar.gz && \
@@ -56,5 +58,9 @@ ENV PATH=$PATH:/usr/local/ROBEX
 RUN apt install bc
 
 # Install scripts
-COPY individual-melodic.sh /usr/local/bin
+COPY individual-fix.sh /usr/local/bin
 
+# User neuro
+ARG UID=1000
+RUN useradd -m -u ${UID} neuro
+#ENV USER=neuro
