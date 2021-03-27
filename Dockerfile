@@ -12,23 +12,28 @@ ENV DEBIAN_FRONTEND=noninteractive
 # Change default sh from Dash to Bash
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
-# Install utilities
-RUN apt update && apt install -y bc curl less libgl1-mesa-dev \
-  python python-numpy r-base r-cran-devtools vim wget 
+# Install utilities, python, and R
+# libgl1-mesa-dev is needed for fslpython
+# python-numpy is needed for FSL
+RUN apt-get update && apt-get install -y --no-install-recommends \
+  bc less libgl1-mesa-dev vim wget \
+  python python-numpy \
+  r-base r-cran-devtools
 
 
 ## R packages for FIX
 # sources: https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FIX/UserGuide
 # Install R packages for FIX
 COPY fix-r-packages.R /tmp/
-RUN Rscript /tmp/fix-r-packages.R
+RUN Rscript /tmp/fix-r-packages.R && rm /tmp/fix-r-packages.R
 
 
 ## ROBEX (good for skull stripping)
 # Install ROBEX
 RUN cd /tmp && wget http://www.lin4neuro.net/lin4neuro/neuroimaging_software_packages/ROBEXv12.linux64.tar.gz && \
   cd /usr/local && tar xvzf /tmp/ROBEXv12.linux64.tar.gz && chmod 755 ROBEX && cd ROBEX && \
-  find -type f -exec chmod 644 {} \; && chmod 755 ROBEX runROBEX.sh dat ref_vols
+  find -type f -exec chmod 644 {} \; && chmod 755 ROBEX runROBEX.sh dat ref_vols && \
+  rm /tmp/ROBEXv12.linux64.tar.gz
 ENV PATH=$PATH:/usr/local/ROBEX
 
 
@@ -57,7 +62,8 @@ COPY settings.sh /usr/local/fix
 ## Octave
 # source: README under fix
 # Install Octave
-RUN apt install -y octave octave-io octave-statistics octave-specfun \
+RUN apt-get install -y --no-install-recommends \
+  octave octave-io octave-statistics octave-specfun \
   octave-general octave-control octave-signal && \
   echo "pkg load io statistics specfun general control signal" >> /usr/share/octave/site/m/startup/octaverc
 
