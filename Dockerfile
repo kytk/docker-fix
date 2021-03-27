@@ -15,9 +15,10 @@ RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 # Install utilities, python, and R
 # libgl1-mesa-dev is needed for fslpython
 # python-numpy is needed for FSL
-RUN apt-get update && apt-get install -y \
-  bc less libgl1-mesa-dev vim wget \
-  python python-numpy \
+RUN apt-get update && apt-get install -y --no-install-recommends \
+  bc less libgl1-mesa-dev vim wget python python-numpy
+
+RUN apt-get install \
   r-base r-cran-devtools
 
 
@@ -62,10 +63,15 @@ COPY settings.sh /usr/local/fix
 ## Octave
 # source: README under fix
 # Install Octave
-RUN apt-get install -y --no-install-recommends \
-  octave octave-io octave-statistics octave-specfun \
-  octave-general octave-control octave-signal && \
-  echo "pkg load io statistics specfun general control signal" >> /usr/share/octave/site/m/startup/octaverc
+RUN apt-get install -y \
+  octave octave-statistics octave-signal && \
+  echo "pkg load statistics signal" >> /usr/share/octave/site/m/startup/octaverc
+
+
+#RUN apt-get install -y \
+#  octave octave-io octave-statistics octave-specfun \
+#  octave-general octave-control octave-signal && \
+#  echo "pkg load io statistics specfun general control signal" >> /usr/share/octave/site/m/startup/octaverc
 
 # modification of FIX m-files for Octave
 # source: https://www.jiscmail.ac.uk/cgi-bin/wa-jisc.exe?A2=FSL;992d17bb.2012
@@ -80,7 +86,8 @@ COPY individual-fix.sh /usr/local/bin
 
 
 ## USER is needed for feat
-# User neuro
+# User brain
 ARG UID=1000
-RUN useradd -m -u ${UID} neuro
-ENV USER=neuro
+RUN useradd -m -u ${UID} brain
+ENV USER=brain
+
