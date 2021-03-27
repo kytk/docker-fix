@@ -12,9 +12,23 @@ delvol=4
 
 ######################################################
 
+#Return error with no arguments
+if [ $# -lt 1 ] ; then
+        echo "Error! No file is specified!"
+        echo "Usage: $0 F_ID.nii.gz"
+fi
 
-for f in F_*.nii*
+
+for f in "$@"
 do
+
+  #Check if the file name is correct
+  if [ `echo $f | cut -c 1,2` != "F_" ] ; then
+         echo "Error! File name is incorrect. Please specify fMRI files!"
+         echo "Filename should begin with F_"
+         echo "example: F_subj01.nii.gz"
+         exit 1
+  fi
 
   #Define variable func_orig and struct_orig
   func_orig=$(imglob $f)
