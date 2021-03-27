@@ -185,7 +185,7 @@ EOS
   feat design_${func_orig}.fsf
 
   # FIX
-  fix ${func_orig}.ica /usr/local/fix/Standard.RData 20 -m
+  fix ${func_orig}.ica /usr/local/fix/training_files/Standard.RData 20 -m
 
 done
 
