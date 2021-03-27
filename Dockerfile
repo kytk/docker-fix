@@ -15,7 +15,7 @@ RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 # Install utilities, python, and R
 # libgl1-mesa-dev is needed for fslpython
 # python-numpy is needed for FSL
-RUN apt-get update && apt-get install -y --no-install-recommends \
+RUN apt-get update && apt-get install -y \
   bc less libgl1-mesa-dev vim wget \
   python python-numpy \
   r-base r-cran-devtools
