@@ -12,14 +12,14 @@ ENV DEBIAN_FRONTEND=noninteractive
 # Change default sh from Dash to Bash
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
+
 # Install utilities, python, and R
 # libgl1-mesa-dev is needed for fslpython
 # python-numpy is needed for FSL
 RUN apt-get update && apt-get install -y --no-install-recommends \
   bc less libgl1-mesa-dev vim wget python python-numpy
 
-RUN apt-get install \
-  r-base r-cran-devtools
+RUN apt-get install -y r-base r-cran-devtools
 
 
 ## R packages for FIX
