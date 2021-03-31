@@ -10,7 +10,7 @@
 - Pull the image and mount working directory as /home/brain in the container
 
 ```
-docker run -it --rm -u brain -v $PWD:/home/brain docker-fix:latest
+docker run -it --rm -v $PWD:/home/brain kytk/docker-fix:latest
 ```
 
 - Run the "individual-fix.sh" script
@@ -22,7 +22,7 @@ cd # cd to /home/brain
 individual-fix.sh F_*.nii.gz
 ```
 
-- Then the scripts run MELODIC for fMRI data and FIX after that with default parameter (Stardard.R 20 -m).
+- Then the script runs MELODIC for fMRI data and FIX after that with default parameter (Stardard.R 20 -m).
    - The result data would be "filtered_func_data_clean.nii.gz" under *.ica
 
 
