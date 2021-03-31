@@ -88,6 +88,6 @@ COPY individual-fix.sh /usr/local/bin
 ## USER is needed for feat
 # User brain
 ARG UID=1000
-RUN useradd -m -u ${UID} brain
-ENV USER=brain
+RUN useradd -m -u ${UID} brain && echo "brain:lin4neuro" | chpasswd && adduser brain sudo
+USER brain
 
