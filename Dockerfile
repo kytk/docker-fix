@@ -90,4 +90,5 @@ COPY individual-fix.sh /usr/local/bin
 ARG UID=1000
 RUN useradd -m -u ${UID} brain && echo "brain:lin4neuro" | chpasswd && adduser brain sudo
 USER brain
+ENV USER=brain
 
