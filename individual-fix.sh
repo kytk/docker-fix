@@ -10,6 +10,14 @@ fwhm=5
 #Set the number of volumes to be deleted (dummy volume)
 delvol=4
 
+#Slice timing correction
+# 0 : None
+# 1 : Regular up (0, 1, 2, 3, ...)
+# 2 : Regular down
+# 3 : Use slice order file
+# 4 : Use slice timings file
+# 5 : Interleaved (0, 2, 4 ... 1, 3, 5 ... )
+st=1
 ######################################################
 
 #Return error with no arguments
@@ -103,7 +111,7 @@ set fmri(dwell) 0.0
 set fmri(te) 0.0
 set fmri(signallossthresh) 10
 set fmri(unwarp_dir) y-
-set fmri(st) 1
+set fmri(st) ${st}
 set fmri(st_file) ""
 set fmri(bet_yn) 1
 # Spatial smoothing FWHM (mm)
