@@ -9,9 +9,9 @@ fi
 tag=$1
 
 # build image
-docker build -t docker-fix:${tag} .
+docker build -t kytk/docker-fix:${tag} .
 
 # make archive
-docker save -o docker-fix.${tag}.tar docker-fix:${tag}
-pigz docker-fix.${tag}.tar
+#docker save -o docker-fix.${tag}.tar docker-fix:${tag}
+#pigz docker-fix.${tag}.tar
 
