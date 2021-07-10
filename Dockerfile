@@ -2,7 +2,7 @@
 ## This file makes a container image of FSL-FIX
 ## FSL 6.0.4
 ## FIX 1.0.6.15
-## K. Nemoto 27 Mar 2021
+## K. Nemoto 11 Jul 2021
 
 FROM ubuntu:18.04
 
@@ -82,8 +82,7 @@ RUN sed -i 's/median/nanmedian/g' /usr/local/fix/fix_1a_extract_features.m && \
     sed -i 's/corrcoef/corr/g' /usr/local/fix/featuremotioncorrelation.m
 
 ## Main script
-COPY individual-fix.sh /usr/local/bin
-
+COPY individual-fix.sh collect_fixed.sh /usr/local/bin
 
 ## USER is needed for feat
 # User brain
