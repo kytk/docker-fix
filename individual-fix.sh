@@ -1,6 +1,24 @@
 #!/bin/bash
 
-# A script to run Melodic and FIX
+# A script to run individual Melodic and FIX
+# (ROBEX is used for skull-stripping)
+# Please set the configuration below first
+
+# Requirement
+# This script assumes that the filenmae of 3D-T1 images starts with V_
+# and the filename of rs-fMRI images starts with F_
+#
+# e.g. V_0001.nii.gz and F_0001.nii.gz 
+
+# Usage
+# copy this file to your working directory and run the script.
+# You need to specify rs-fMRI files as arguments.
+#
+# e.g.
+# $ cp /usr/local/bin/individual_fix.sh .
+# $ ./individual_fix.sh F_*.nii.gz
+
+# 10 Jul 2021 K.Nemoto
 
 ###Configuration#######################################
 
