@@ -82,7 +82,7 @@ RUN sed -i 's/median/nanmedian/g' /usr/local/fix/fix_1a_extract_features.m && \
     sed -i 's/corrcoef/corr/g' /usr/local/fix/featuremotioncorrelation.m
 
 ## Main script
-COPY individual-fix.sh collect_fixed.sh /usr/local/bin
+COPY individual-fix.sh collect_fixed.sh /usr/local/bin/
 
 ## USER is needed for feat
 # User brain
