@@ -182,7 +182,8 @@ set fmri(regstandard_nonlinear_yn) 0
 set fmri(regstandard_nonlinear_warpres) 10
 set fmri(paradigm_hp) 100
 # Total voxels
-set fmri(totalVoxels) 39976960
+#set fmri(totalVoxels) 39976960
+set fmri(totalVoxels) ${totalVoxels}
 set fmri(ncopeinputs) 0
 # 4D AVW data or FEAT directory (1)
 set feat_files(1) "${feat_files}"
