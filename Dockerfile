@@ -40,7 +40,7 @@ ENV PATH=$PATH:/usr/local/ROBEX
 
 ## FSL
 # Install FSL, get rid of src directory, and set environment variables
-RUN cd /tmp && wget https://fsl.fmrib.ox.ac.uk/fsldownloads/fslinstaller.py && \
+RUN cd /tmp && wget http://www.lin4neuro.net/lin4neuro/neuroimaging_software_packages/fslinstaller.py && \
   python fslinstaller.py -d /usr/local/fsl -V 6.0.4 && rm -rf /usr/local/fsl/src
 
 ENV FSLDIR=/usr/local/fsl
