@@ -17,7 +17,7 @@ RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 # libgl1-mesa-dev is needed for fslpython
 # python-numpy is needed for FSL
 RUN apt-get update && apt-get install -y --no-install-recommends \
-  bc less libgl1-mesa-dev nano sudo vim wget python python-numpy
+  bc less libgl1-mesa-dev nano sudo vim wget python python-numpy curl
 
 RUN apt-get install -y r-base r-cran-devtools
 
