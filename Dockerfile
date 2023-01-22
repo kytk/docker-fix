@@ -40,9 +40,8 @@ ENV PATH=$PATH:/usr/local/ROBEX
 
 ## FSL
 # Install FSL, get rid of src directory, and set environment variables
-RUN cd /tmp && \
-   curl -O http://www.lin4neuro.net/lin4neuro/neuroimaging_software_packages/fsl-6.0.5.2.zip && \
-  unzip fsl-6.0.5.2.zip -d /usr/local/ && \
+RUN cd /tmp && wget http://www.lin4neuro.net/lin4neuro/neuroimaging_software_packages/fsl-6.0.5.2.zip && \
+  cd /usr/local && unzip /tmp/fsl-6.0.5.2.zip && \
   rm -rf /usr/local/fsl/src && \
   rm /tmp/fsl-6.0.5.2.zip
 
