@@ -2,7 +2,7 @@
 ## This file makes a container image of FSL-FIX
 ## FSL 6.0.4
 ## FIX 1.0.6.15
-## K. Nemoto 31 Jan 2023
+## K. Nemoto 04 Feb 2023
 
 FROM ubuntu:18.04
 
