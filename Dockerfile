@@ -8,6 +8,7 @@ FROM ubuntu:18.04
 
 ENV DEBIAN_FRONTEND=noninteractive
 
+
 ## General
 # Change default sh from Dash to Bash
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
@@ -19,7 +20,10 @@ RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 RUN apt-get update && apt-get install -y --no-install-recommends \
   bc less libgl1-mesa-dev nano sudo vim wget python python-numpy curl
 
-RUN apt-get install -y r-base r-cran-devtools
+
+# Install packages for R
+RUN apt-get install -y r-base r-cran-catools r-cran-devtools r-cran-th.data \
+  build-essential libcurl4-gnutls-dev libxml2-dev libssl-dev
 
 
 ## R packages for FIX
