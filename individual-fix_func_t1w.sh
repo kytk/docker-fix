@@ -11,9 +11,12 @@
 # e.g.
 # $ cp /usr/local/bin/individual-fix_func_t1w.sh .
 # edit the individual_fix.sh and set the parameter
-# $ ./individual-fix_func_t1w.sh <rsfmri.nii.gz> <3Dt1w.nii.gz>
+# $ ./individual-fix_func_t1w.sh <rsfmri.nii.gz> <3dt1w.nii.gz>
 
 # 04 Feb 2023 K.Nemoto
+
+# For Debugging
+#set -x
 
 ###Configuration#######################################
 
@@ -46,49 +49,54 @@ cwd=$PWD
 # prepare working directory
 [[ -d workingDir ]] || mkdir workingDir
 
+func_path=$1
+anat_path=$2
+func_fname=$(basename $func_path)
+anat_fname=$(basename $anat_path)
+
 # check if the files are specified correctly
-t1w_dim4=$(fslval $2 dim4)
+t1w_dim4=$(fslval $anat_path dim4)
 if [[ ${t1w_dim4} -ne 1 ]]; then
   echo "It seems you specified the wrong files"
-  echo "Usage: $0 <func> <struct>"
+  echo "Usage: $0 <func> <anat>"
   exit 1
 fi
 
 # find functional and structural file
-find . -name $1 -exec cp {} workingDir
-find . -name $2 -exec cp {} workingDir
+find $func_path -name $func_fname -exec cp {} workingDir \;
+find $anat_path -name $anat_fname -exec cp {} workingDir \;
 
 # cd to workingDir
 cd workingDir
 
-#Define variable func_orig and struct_orig
-func_orig=$(imglob $1)
-struct_orig=$(imglob $2)
+#Define variable func_orig and anat_orig
+func_orig=$(imglob $func_fname)
+anat_orig=$(imglob $anat_fname)
 
 #Set the orientation of structural image to axial
-fslreorient2std ${struct_orig} ${struct_orig}_std 
-struct=${struct_orig}_std
+fslreorient2std ${anat_orig} ${anat_orig}_std 
+anat=${anat_orig}_std
           
 #Skull stripping T1 image using ROBEX
-echo "Skull stripping ${struct} using ROBEX"
-/usr/local/ROBEX/runROBEX.sh $struct ${struct}_brain.nii.gz
+echo "Skull stripping ${anat} using ROBEX"
+/usr/local/ROBEX/runROBEX.sh $anat ${anat}_brain.nii.gz
 
 
 ##Image Parameters###################################
 #TR
-tr=$(fslval $f pixdim4)
+tr=$(fslval $func_orig pixdim4)
 
 #Total volumes
-npts=$(fslval $f dim4)
+npts=$(fslval $func_orig dim4)
 
 #Total voxles
-totalVoxels=$(fslstats $f -v | awk '{ print $1 }')
+totalVoxels=$(fslstats $func_orig -v | awk '{ print $1 }')
 
 #Feat files
-feat_files=$(imglob ${PWD}/$f)
+feat_files=$PWD/$func_orig
 
 #Highres files
-highres_files=$(echo ${PWD}/${struct}_brain)
+highres_files=${anat}_brain
 #####################################################
   
   
