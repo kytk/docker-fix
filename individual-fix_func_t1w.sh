@@ -96,7 +96,7 @@ totalVoxels=$(fslstats $func_orig -v | awk '{ print $1 }')
 feat_files=$PWD/$func_orig
 
 #Highres files
-highres_files=${anat}_brain
+highres_files=$PWD/${anat}_brain
 #####################################################
   
   
