@@ -26,13 +26,6 @@ RUN apt-get install -y r-base r-cran-catools r-cran-devtools r-cran-th.data \
   build-essential libcurl4-gnutls-dev libxml2-dev libssl-dev
 
 
-## R packages for FIX
-# sources: https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FIX/UserGuide
-# Install R packages for FIX
-COPY fix-r-packages.R /tmp/
-RUN Rscript /tmp/fix-r-packages.R && rm /tmp/fix-r-packages.R
-
-
 ## ROBEX (good for skull stripping)
 # Install ROBEX
 RUN cd /tmp && wget http://www.lin4neuro.net/lin4neuro/neuroimaging_software_packages/ROBEXv12.linux64.tar.gz && \
@@ -86,6 +79,13 @@ RUN sed -i 's/median/nanmedian/g' /usr/local/fix/fix_1a_extract_features.m && \
     sed -i 's/corrcoef/corr/g' /usr/local/fix/featuretsjump.m && \
     sed -i 's/corrcoef/corr/g' /usr/local/fix/featuresagmasks.m && \
     sed -i 's/corrcoef/corr/g' /usr/local/fix/featuremotioncorrelation.m
+
+## R packages for FIX
+# sources: https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FIX/UserGuide
+# Install R packages for FIX
+COPY fix-r-packages.R /tmp/
+RUN Rscript /tmp/fix-r-packages.R && rm /tmp/fix-r-packages.R
+
 
 ## Main script
 COPY individual-fix.sh collect_fixed.sh /usr/local/bin/
