@@ -8,11 +8,9 @@ FROM ubuntu:18.04
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-
 ## General
 # Change default sh from Dash to Bash
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
-
 
 # Install utilities, python, and R
 # libgl1-mesa-dev is needed for fslpython
@@ -20,11 +18,9 @@ RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 RUN apt-get update && apt-get install -y --no-install-recommends \
   bc less libgl1-mesa-dev nano sudo vim wget python python-numpy curl
 
-
 # Install packages for R
 RUN apt-get install -y r-base r-cran-catools r-cran-devtools r-cran-th.data \
   build-essential libcurl4-gnutls-dev libxml2-dev libssl-dev
-
 
 ## ROBEX (good for skull stripping)
 # Install ROBEX
@@ -33,7 +29,6 @@ RUN cd /tmp && wget http://www.lin4neuro.net/lin4neuro/neuroimaging_software_pac
   find -type f -exec chmod 644 {} \; && chmod 755 ROBEX runROBEX.sh dat ref_vols && \
   rm /tmp/ROBEXv12.linux64.tar.gz
 ENV PATH=$PATH:/usr/local/ROBEX
-
 
 ## FSL
 # Install FSL, get rid of src directory, and set environment variables
@@ -48,7 +43,6 @@ ENV FSLOUTPUTTYPE=NIFTI_GZ
 ENV FSLTCLSH=$FSLDIR/bin/fsltclsh
 ENV FSLWISH=$FSLDIR/bin/fslwish
 
-
 ## FIX
 # Install FIX
 RUN cd /tmp && wget http://www.fmrib.ox.ac.uk/~steve/ftp/fix.tar.gz && \
@@ -58,14 +52,12 @@ ENV PATH=$PATH:/usr/local/fix
 # Copy customized settings.sh for fix
 COPY settings.sh /usr/local/fix
 
-
 ## Octave
 # source: README under fix
 # Install Octave
 RUN apt-get install -y \
   octave octave-statistics octave-signal && \
   echo "pkg load statistics signal" >> /usr/share/octave/site/m/startup/octaverc
-
 
 #RUN apt-get install -y \
 #  octave octave-io octave-statistics octave-specfun \
@@ -86,9 +78,8 @@ RUN sed -i 's/median/nanmedian/g' /usr/local/fix/fix_1a_extract_features.m && \
 COPY fix-r-packages.R /tmp/
 RUN Rscript /tmp/fix-r-packages.R && rm /tmp/fix-r-packages.R
 
-
 ## Main script
-COPY individual-fix.sh collect_fixed.sh /usr/local/bin/
+COPY individual-fix.sh individual-fix_func_t1w.sh collect_fixed.sh /usr/local/bin/
 
 ## USER is needed for feat
 # User brain
